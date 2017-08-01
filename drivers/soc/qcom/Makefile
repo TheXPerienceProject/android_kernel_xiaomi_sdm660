@@ -116,3 +116,7 @@ obj-y += serial_num.o
 
 obj-$(CONFIG_STATE_NOTIFIER) += state_notifier.o
 
+# TODO: remove me b/62058353
+subdir-ccflags-y += \
+	-Wno-ignored-attributes \
+	-Wno-gcc-compat
