@@ -224,4 +224,5 @@ int adm_programable_channel_mixer(int port_id, int copp_idx, int session_id,
 			struct msm_pcm_channel_mixer *ch_mixer,
 			int channel_index);
 void adm_set_native_mode(int mode);
+
 #endif /* __Q6_ADM_V2_H__ */
