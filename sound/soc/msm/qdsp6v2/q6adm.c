@@ -2117,9 +2117,6 @@ static void send_adm_cal(int port_id, int copp_idx, int path, int perf_mode,
 {
 	pr_debug("%s: port id 0x%x copp_idx %d\n", __func__, port_id, copp_idx);
 
-	send_adm_cal_type(ADM_AUDPROC_CAL, path, port_id, copp_idx, perf_mode,
-			  app_type, acdb_id, sample_rate);
-
 	if (passthr_mode != LISTEN)
 		send_adm_cal_type(ADM_AUDPROC_CAL, path, port_id, copp_idx,
 				perf_mode, app_type, acdb_id, sample_rate);

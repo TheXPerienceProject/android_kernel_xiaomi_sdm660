@@ -1622,13 +1622,6 @@ static int fwu_write_f34_v7_command(unsigned char cmd)
 
 	data_base = fwu->f34_fd.data_base_addr;
 
-		while ((index < MAX_FIRMWARE_ID_LEN - 1) && strptr[index] >= '0'
-						&& strptr[index] <= '9') {
-			firmware_id[index] = strptr[index];
-			index++;
-		}
-		firmware_id[index] = '\0';
-
 	switch (cmd) {
 	case CMD_WRITE_FW:
 	case CMD_WRITE_CONFIG:

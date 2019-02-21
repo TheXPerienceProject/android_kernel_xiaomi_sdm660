@@ -4314,40 +4314,6 @@ static int synaptics_rmi4_probe(struct platform_device *pdev)
 		goto err_enable_irq;
 	}
 
-<<<<<<< HEAD
-	exp_data.workqueue = create_singlethread_workqueue("dsx_exp_workqueue");
-	if (exp_data.workqueue == NULL) {
-		dev_err(&pdev->dev,
-			"%s: Failed to create workqueue\n", __func__);
-		retval = -ENOMEM;
-		goto err_create_wq;
-	}
-
-	INIT_DELAYED_WORK(&exp_data.work, synaptics_rmi4_exp_fn_work);
-	exp_data.rmi4_data = rmi4_data;
-	exp_data.queue_work = true;
-	queue_delayed_work(exp_data.workqueue,
-			&exp_data.work,
-			msecs_to_jiffies(EXP_FN_WORK_DELAY_MS));
-
-	rmi4_data->dir = debugfs_create_dir(DEBUGFS_DIR_NAME, NULL);
-	if (rmi4_data->dir == NULL || IS_ERR(rmi4_data->dir)) {
-		retval = rmi4_data->dir ? PTR_ERR(rmi4_data->dir) : -EIO;
-		dev_err(&pdev->dev,
-			"%s: Failed to create debugfs directory, rc = %d\n",
-			__func__, retval);
-		goto err_create_debugfs_dir;
-	}
-
-	temp = debugfs_create_file("suspend", S_IRUSR | S_IWUSR, rmi4_data->dir,
-					rmi4_data, &debug_suspend_fops);
-	if (temp == NULL || IS_ERR(temp)) {
-		retval = temp ? PTR_ERR(temp) : -EIO;
-		dev_err(&pdev->dev,
-			"%s: Failed to create suspend debugfs file, rc = %d\n",
-			__func__, retval);
-		goto err_create_debugfs_file;
-=======
 	if (vir_button_map->nbuttons) {
 		rmi4_data->board_prop_dir = kobject_create_and_add(
 				"board_properties", NULL);
@@ -4366,7 +4332,6 @@ static int synaptics_rmi4_probe(struct platform_device *pdev)
 				goto err_virtual_buttons;
 			}
 		}
->>>>>>> f54110e3729a... Kernel: Xiaomi kernel changes for Redmi Note5 and XiaoMi 6X
 	}
 
 	for (attr_count = 0; attr_count < ARRAY_SIZE(attrs); attr_count++) {
@@ -4418,17 +4383,6 @@ err_sysfs:
 		sysfs_remove_file(&rmi4_data->input_dev->dev.kobj,
 				&attrs[attr_count].attr);
 	}
-<<<<<<< HEAD
-err_create_debugfs_file:
-	debugfs_remove_recursive(rmi4_data->dir);
-err_create_debugfs_dir:
-	cancel_delayed_work_sync(&exp_data.work);
-	flush_workqueue(exp_data.workqueue);
-	destroy_workqueue(exp_data.workqueue);
-err_create_wq:
-	synaptics_rmi4_irq_enable(rmi4_data, false);
-	free_irq(rmi4_data->irq, rmi4_data);
-=======
 
 err_virtual_buttons:
 	if (rmi4_data->board_prop_dir) {
@@ -4438,7 +4392,6 @@ err_virtual_buttons:
 	}
 
 	synaptics_rmi4_irq_enable(rmi4_data, false, false);
->>>>>>> f54110e3729a... Kernel: Xiaomi kernel changes for Redmi Note5 and XiaoMi 6X
 
 err_enable_irq:
 #ifdef CONFIG_FB
